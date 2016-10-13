@@ -4,16 +4,17 @@ import { UniversalModule } from 'angular2-universal';
 import { AppComponent } from './components/app/app.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
+import { DateComponent } from './components/date/date.component';
+import { BuilderComponent } from './components/builder/builder.component';
+import { DateService, BuilderService } from './services/index';
 
 @NgModule({
     bootstrap: [ AppComponent ],
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
+        DateComponent,
+        BuilderComponent,
         HomeComponent
     ],
     imports: [
@@ -21,11 +22,12 @@ import { CounterComponent } from './components/counter/counter.component';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
+            { path: 'date', component: DateComponent },
+            { path: 'builder', component: BuilderComponent },
             { path: '**', redirectTo: 'home' }
         ])
-    ]
+    ],
+    providers: [DateService, BuilderService]
 })
 export class AppModule {
 }

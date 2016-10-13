@@ -1,0 +1,37 @@
+<!-- Start Date with Date Id -->
+<label for="enterId">Ready to start your date? Enter your Date ID!</label><br />
+<div class="input-group">
+    <input type="text" id="enterId" class="form-control" placeholder="123" />
+    <span class="input-group-btn">
+        <button type="submit" class="btn btn-default" (click)="startDate()">Go!</button>
+    </span>
+</div>
+<small class="form-text text-muted">This was emailed to your date creator.</small>
+<br />
+
+
+<!-- Locations -->
+<div id="mylocations" *ngIf="locationShown">
+    <!--<h4>First, Choose your Location!</h4>-->
+    <div *ngFor="let location of date.locations" class="col-xs-6">
+        <button class="btn btn-primary btn-lg" (click)="startActivities(location)">{{location.name}}</button>
+    </div>
+</div>
+
+<!-- Activities -->
+<div *ngIf="activitiesEnabled">
+    <!--<h4>Activity Group {{currentActivityOrder}}</h4>-->
+    <div *ngFor="let activity of currentActivities" class="col-xs-6" [attr.id]="'activity'+activity.activityId">
+        <button class="btn btn-primary btn-lg" (click)="showActivityDetails(activity)">{{activity.name}}</button><br />
+        <div *ngIf="detailsShown">
+            <h4>{{activity.description}}</h4><br />
+            {{activity.address}}<br />
+            <button class="btn btn-success" S (click)="goToActivities()">Finished {{activity.name}}</button>
+        </div>
+    </div>
+</div>
+<style>
+    .myLocations {
+        margin-bottom: 20px;
+    }
+</style>
