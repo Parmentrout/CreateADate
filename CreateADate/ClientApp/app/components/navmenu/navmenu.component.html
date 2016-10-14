@@ -7,24 +7,24 @@
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <a class='navbar-brand' [routerLink]="['/home']">CreateADate</a>
+            <a class='navbar-brand' [routerLink]="['/home']">Create a Date</a>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/builder']">
+                        <span class='glyphicon glyphicon-pencil'></span> Date Builder
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/date']">
+                        <span class='glyphicon glyphicon-user'></span> My Date
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/home']">
-                        <span class='glyphicon glyphicon-home'></span> Home
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/counter']">
-                        <span class='glyphicon glyphicon-education'></span> Counter
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/fetch-data']">
-                        <span class='glyphicon glyphicon-th-list'></span> Fetch data
+                        <span class='glyphicon glyphicon-th-large'></span> Saved Dates
                     </a>
                 </li>
             </ul>

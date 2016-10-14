@@ -6,6 +6,7 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { DateComponent } from './components/date/date.component';
 import { BuilderComponent } from './components/builder/builder.component';
+import { ActivityComponent } from './components/builder/activity.component';
 import { DateService, BuilderService } from './services/index';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DateService, BuilderService } from './services/index';
         NavMenuComponent,
         DateComponent,
         BuilderComponent,
-        HomeComponent
+        HomeComponent,
+        ActivityComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

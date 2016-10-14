@@ -4,3 +4,13 @@
         padding-top: 50px;
     }
 }
+
+.locationsOptions {
+    margin-top: 30px;
+ }
+
+@media (min-width: 768px) {
+    .body-content {
+        margin-top: 50px;
+    }
+}

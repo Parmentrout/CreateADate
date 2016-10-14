@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Date, Activity, Location } from '../../models/index';
 import { BuilderService } from '../../services/builder.service';
+import { ActivityComponent } from './activity.component';
 
 @Component({
-    //moduleId: module.id,
     selector: 'date-builder',
     template: require('./builder.component.html')
 })
@@ -12,6 +12,7 @@ export class BuilderComponent implements OnInit {
     location1: Location = new Location();
     location2: Location = new Location();
     locationsValid: boolean = false;
+    showActivities: boolean = false;
 
     constructor(private _builderService: BuilderService) {
     }
@@ -22,12 +23,12 @@ export class BuilderComponent implements OnInit {
     }
 
     locationSubmit() {
-        this._builderService.date.locations = new Array<Location>();
-        this._builderService.date.locations.push(this.location1);
-        this._builderService.date.locations.push(this.location2);
+        //this._builderService.date.locations = new Array<Location>();
+        //this._builderService.date.locations.push(this.location1);
+        //this._builderService.date.locations.push(this.location2);
 
-
-        //$('#locationoptions').show(1000);
+        this.showActivities = true;
+       // $('#locationoptions').show(1000);
     }
 
     onLoc1Change(value: string) {
