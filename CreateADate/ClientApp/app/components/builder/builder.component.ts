@@ -13,6 +13,7 @@ export class BuilderComponent implements OnInit {
     location2: Location = new Location();
     locationsValid: boolean = false;
     showActivities: boolean = false;
+    addActivities: boolean = false;
 
     constructor(private _builderService: BuilderService) {
     }
@@ -31,6 +32,9 @@ export class BuilderComponent implements OnInit {
        // $('#locationoptions').show(1000);
     }
 
+    activitySubmit() {
+        this.addActivities = true;
+    }
     onLoc1Change(value: string) {
         this.location1.name = value;
         this.validateLocations();

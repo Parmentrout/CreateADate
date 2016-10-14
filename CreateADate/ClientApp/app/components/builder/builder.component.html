@@ -30,15 +30,25 @@
             <activity-options></activity-options>
         </div>
     </div>
-    <div class="col-xs-12">
-        <button class="btn-info btn btn-block">Add Another Activity Set</button>
-        <!--When you click on this it will duplicate the location options and scroll down while leaving the previous set of activities open for editing-->
-    </div>
-    <div class="col-xs-12">
-        <button class="btn-success btn btn-block">Add Activities for Location 2</button>
-        <!--When you click on this it will bring up the location options and get rid of the activities for location 1-->
-    </div>
-</div>
+    <div *ngIf="addActivities">
+        <div class="row">
+            <div class="col-xs-6">
+                <activity-options></activity-options>
+            </div>
+            <div class="col-xs-6">
+                <activity-options></activity-options>
+            </div>
+        </div>
+        </div>
 
+        <div class="col-xs-12">
+            <button class="btn-info btn btn-block" (click)="activitySubmit()">Add Another Activity Set</button>
+            <!--When you click on this it will duplicate the location options and scroll down while leaving the previous set of activities open for editing-->
+        </div>
+        <div class="col-xs-12">
+            <button class="btn-success btn btn-block">Add Activities for Location 2</button>
+            <!--When you click on this it will bring up the location options and get rid of the activities for location 1-->
+        </div>
+    </div>
 
 
