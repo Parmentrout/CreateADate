@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Date, Activity, Location } from '../../models/index';
+import { Date, Activity, Location, ActivityGroup } from '../../models/index';
 import { BuilderService } from '../../services/builder.service';
 import { ActivityComponent } from './activity.component';
 
@@ -9,11 +9,10 @@ import { ActivityComponent } from './activity.component';
 })
 export class BuilderComponent implements OnInit {
     model: Date = new Date();
-    location1: Location = new Location();
-    location2: Location = new Location();
+    location1: Location = new Location(); // fix these
+    location2: Location = new Location(); // fix these
     locationsValid: boolean = false;
-    showActivities: boolean = false;
-    addActivities: boolean = false;
+    activityGroups: ActivityGroup[] = new Array<ActivityGroup>();
 
     constructor(private _builderService: BuilderService) {
     }
@@ -21,20 +20,39 @@ export class BuilderComponent implements OnInit {
     ngOnInit() {
         this.location1.name = '';
         this.location2.name = '';
+
+        this.addBlankActivityGroup();
+    }
+
+    addBlankActivityGroup() {
+        //option 1
+        let option1 = new Activity();
+        option1.optionId = 1;
+
+        let option2 = new Activity();
+        option2.optionId = 2;
+
+        let actGroup = new ActivityGroup();
+        actGroup.id = "1";
+        actGroup.group = new Array<Activity>();
+        actGroup.group.push(option1, option2);
+
+        this.activityGroups.push(actGroup);
     }
 
     locationSubmit() {
-        //this._builderService.date.locations = new Array<Location>();
-        //this._builderService.date.locations.push(this.location1);
-        //this._builderService.date.locations.push(this.location2);
-
-        this.showActivities = true;
-       // $('#locationoptions').show(1000);
+        this._builderService.date.locations = new Array<Location>();
+        this._builderService.date.locations.push(this.location1);
+        this._builderService.date.locations.push(this.location2);
+        var $ = require('jquery');
+        $('#locationOptions').show('slow');
     }
 
     activitySubmit() {
-        this.addActivities = true;
+        //Save current Activity      
+        this.addBlankActivityGroup();
     }
+
     onLoc1Change(value: string) {
         this.location1.name = value;
         this.validateLocations();
