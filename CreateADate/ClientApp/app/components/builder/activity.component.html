@@ -1,26 +1,40 @@
-﻿<div id="options">
-    <div id="options1" class="col-xs-6">
-        <div class="form-group">
-            <label class="control-label" for="focusedInput">Option 1</label>
-            <input class="form-control" id="focusedInput" type="text" value="This is what will be displayed as a choice">
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="focusedInput">Description</label>
-            <input class="form-control" type="text" value="Actual place going + address if exists">
+﻿<div class="col-xs-12">
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel panel-heading">
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" date-parent="accordion" [href]="'#' + panelName">Activity Group {{groupNumber}}</a>
+                </h3>
+            </div>
+            <div [id]="panelName" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div id="options">
+                        <div id="options1" class="col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Option 1</label>
+                                <input class="form-control" id="focusedInput" type="text" placeholder="This is what will be displayed as a choice" #op1 (keyup)="onOp1Change(op1.value)" [(value)]="activity1.name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Description</label>
+                                <input class="form-control" type="text" placeholder="Actual place going + address if exists" #op1desc (keyup)="onOp1DescChange(op1desc.value)" [(value)]="activity1.description">
+                            </div>
+                        </div>
+                        <div id="options2" class="col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Option 2</label>
+                                <input class="form-control" id="focusedInput" type="text" placeholder="This is what will be displayed as a choice" #op2 (keyup)="onOp2Change(op2.value)" [(value)]="activity2.name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Description</label>
+                                <input class="form-control" type="text" placeholder="Actual place going + address if exists" #op2desc (keyup)="onOp2DescChange(op2desc.value)" [(value)]="activity2.description" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div id="options2" class="col-xs-6">
-        <div class="form-group">
-            <label class="control-label" for="focusedInput">Option 2</label>
-            <input class="form-control" id="focusedInput" type="text" value="This is what will be displayed as a choice">
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="focusedInput">Description</label>
-            <input class="form-control" type="text" value="Actual place going + address if exists">
-        </div>
     </div>
-</div>
-
 
 <style>
     .options {

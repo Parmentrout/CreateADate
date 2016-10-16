@@ -2,5 +2,7 @@
 
 export class Date {
     dateId: number;
+
+    //Fix this
     locations: Location[];
 }

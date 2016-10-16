@@ -12,7 +12,13 @@ export class BuilderComponent implements OnInit {
     location1: Location = new Location(); // fix these
     location2: Location = new Location(); // fix these
     locationsValid: boolean = false;
-    activityGroups: ActivityGroup[] = new Array<ActivityGroup>();
+    activity1Groups: ActivityGroup[] = new Array<ActivityGroup>();
+    activity2Groups: ActivityGroup[] = new Array<ActivityGroup>();
+    activity1Counter: number = 1;
+    activity2Counter: number = 1;
+    showStartButton: boolean = true;
+    displayLocation1: boolean = true;
+    displayLocation2: boolean = true;
 
     constructor(private _builderService: BuilderService) {
     }
@@ -20,11 +26,12 @@ export class BuilderComponent implements OnInit {
     ngOnInit() {
         this.location1.name = '';
         this.location2.name = '';
-
-        this.addBlankActivityGroup();
+        this._builderService.date = new Date();
+        this._builderService.date.locations = new Array<Location>();
+        this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
     }
 
-    addBlankActivityGroup() {
+    addBlankActivityGroup(group: ActivityGroup[], counter: number) {
         //option 1
         let option1 = new Activity();
         option1.optionId = 1;
@@ -33,24 +40,28 @@ export class BuilderComponent implements OnInit {
         option2.optionId = 2;
 
         let actGroup = new ActivityGroup();
-        actGroup.id = "1";
+        actGroup.id = counter;
         actGroup.group = new Array<Activity>();
         actGroup.group.push(option1, option2);
 
-        this.activityGroups.push(actGroup);
+        group.push(actGroup);
     }
 
     locationSubmit() {
-        this._builderService.date.locations = new Array<Location>();
-        this._builderService.date.locations.push(this.location1);
-        this._builderService.date.locations.push(this.location2);
+        this._builderService.initializeLocations([this.location1, this.location2]);
+
+        this.showStartButton = false;
+        this.displayLocation2 = false;
         var $ = require('jquery');
-        $('#locationOptions').show('slow');
+        $('#location1Options').show('slow');
     }
 
     activitySubmit() {
-        //Save current Activity      
-        this.addBlankActivityGroup();
+        this.activity1Counter++;
+
+        this._builderService.saveActivityGroup(1);
+
+        this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
     }
 
     onLoc1Change(value: string) {
@@ -62,6 +73,33 @@ export class BuilderComponent implements OnInit {
         this.location2.name = value;
         this.validateLocations();
     }
+
+    goToLocation2() {
+        var $ = require('jquery');
+        // Save Location 1 data to service
+        this._builderService.saveActivityGroup(1);
+
+        $('#location1Options').hide('slow');
+        this.displayLocation1 = false;
+        this.displayLocation2 = true;
+        this.addBlankActivityGroup(this.activity2Groups, this.activity2Counter);
+
+        $('#location2Options').show();
+    }
+
+    activity2Submit() {
+        //Save current Activity  
+        this.activity2Counter++;    
+        this._builderService.saveActivityGroup(2);
+        this.addBlankActivityGroup(this.activity2Groups, this.activity2Counter);
+    }
+
+    finishDate() {
+        this._builderService.saveActivityGroup(2);
+        console.log(this._builderService.date);
+        alert('Please enter your email address so we can send you your date ID');
+    }
+
 
     private validateLocations() {
         if (this.location1.name !== '' && this.location2.name != '') {
