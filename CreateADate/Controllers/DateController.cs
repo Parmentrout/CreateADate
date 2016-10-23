@@ -21,9 +21,48 @@ namespace CreateADate.Controllers
 
         [HttpPost]
         [Route("PostNewDate")]
-        public JsonResult PostNewDate(Date date)
+        public JsonResult PostNewDate([FromBody] Date date)
         {
+            var testDate = new Date()
+            {
+                UserId = 1,
+                Name = "Test",
+                Locations = new List<Location>()
+                {
+                    new Location()
+                    {
+                        Name = "loc1",
+                        Activities = new List<Activity>()
+                        {
+                            new Activity()
+                            {
+                                Name = "Act1",
+                                Description = "what",
+                                OptionId = 1,
+                                ActivityOrder = 1
+                            }
+                        }
+                    },
+                    new Location()
+                    {
+                        Name = "loc2",
+                        Activities = new List<Activity>()
+                        {
+                            new Activity()
+                            {
+                                Name = "Act1",
+                                Description = "what",
+                                OptionId = 1,
+                                ActivityOrder = 1
+                            }
+                        }
+                    }
+                }
+            };
 
+            //_context.Dates.Add(testDate);
+            //_context.SaveChanges();
+            
 
             return Json(string.Empty);
         }
