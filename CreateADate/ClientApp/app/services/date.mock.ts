@@ -3,6 +3,7 @@
 export var MOCKDATE: Date = new Date();
 MOCKDATE = {
     dateId: 1,
+    name: 'Mock',
     locations:
     [
         {

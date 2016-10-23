@@ -19,6 +19,7 @@ export class BuilderComponent implements OnInit {
     showStartButton: boolean = true;
     displayLocation1: boolean = true;
     displayLocation2: boolean = true;
+    dateName: string;
 
     constructor(private _builderService: BuilderService) {
     }
@@ -26,6 +27,7 @@ export class BuilderComponent implements OnInit {
     ngOnInit() {
         this.location1.name = '';
         this.location2.name = '';
+        this.dateName = '';
         this._builderService.date = new Date();
         this._builderService.date.locations = new Array<Location>();
         this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
@@ -74,6 +76,10 @@ export class BuilderComponent implements OnInit {
         this.validateLocations();
     }
 
+    onNameEntry(value: string) {
+        this.dateName = value;
+    }
+
     goToLocation2() {
         var $ = require('jquery');
         // Save Location 1 data to service
@@ -96,8 +102,9 @@ export class BuilderComponent implements OnInit {
 
     finishDate() {
         this._builderService.saveActivityGroup(2);
+        this._builderService.date.name = this.dateName;
 
-        this._builderService.postDate(this._builderService.date).then(value => alert(value));
+        this._builderService.postDate(this._builderService.date).then(() => alert('Success!'));
 
         console.log(this._builderService.date);
         //alert('Please enter your email address so we can send you your date ID');

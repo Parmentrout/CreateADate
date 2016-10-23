@@ -1,5 +1,14 @@
 <!-- put in an email address so we know where to send the date-->
 <div class="panel panel-primary">
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="control-label" for="dateTitle">What shall we call this date?</label>
+            <input type="text" id="dateTitle" class="form-control" #dName (keyup)="onNameEntry(dName.value)" [(value)]="dateName" required/>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-primary">
 <div class="panel-heading">
 <h3 class="panel-title">Locations</h3>
 </div>

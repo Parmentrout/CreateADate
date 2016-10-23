@@ -54,6 +54,7 @@ export class ActivityComponent implements OnInit {
     }
 
     updateBuilderService() {
+
         this._builderService.currentActivityGroup[0] = this.activity1;
         this._builderService.currentActivityGroup[1] = this.activity2;
     }

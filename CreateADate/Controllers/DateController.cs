@@ -23,7 +23,18 @@ namespace CreateADate.Controllers
         [Route("PostNewDate")]
         public JsonResult PostNewDate([FromBody] Date date)
         {
-            var testDate = new Date()
+            date.CreatedDate = DateTimeOffset.Now;
+
+            _context.Dates.Add(date);
+            _context.SaveChanges();
+            
+
+            return Json(string.Empty);
+        }
+    }
+}
+
+/* var testDate = new Date()
             {
                 UserId = 1,
                 Name = "Test",
@@ -59,12 +70,4 @@ namespace CreateADate.Controllers
                     }
                 }
             };
-
-            //_context.Dates.Add(testDate);
-            //_context.SaveChanges();
-            
-
-            return Json(string.Empty);
-        }
-    }
-}
+            */
