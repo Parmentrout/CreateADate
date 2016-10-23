@@ -96,8 +96,11 @@ export class BuilderComponent implements OnInit {
 
     finishDate() {
         this._builderService.saveActivityGroup(2);
+
+        this._builderService.postDate(this._builderService.date).then(value => alert(value));
+
         console.log(this._builderService.date);
-        alert('Please enter your email address so we can send you your date ID');
+        //alert('Please enter your email address so we can send you your date ID');
     }
 
 
