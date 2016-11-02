@@ -32,7 +32,11 @@ namespace CreateADate
         {
             // Add framework services.
             services.AddMvc()
-                .AddJsonOptions(json => { json.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore; });
+                .AddJsonOptions(json => {
+                    json.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                    json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                })
+                ;
 
             services.AddDbContext<CreateADateContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

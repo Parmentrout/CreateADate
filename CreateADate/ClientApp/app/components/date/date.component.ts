@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { DateService } from '../../services/date.service';
 import { Date, Activity, Location } from '../../models/index';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 @Component({
     //moduleId: module.id,
     selector: 'my-date',
     template: require('./date.component.html')
 })
-export class DateComponent implements OnInit {
+export class DateComponent {
     date: Date = new Date();
     activitiesEnabled: boolean = false;
     detailsShown: boolean = false;
@@ -15,18 +17,31 @@ export class DateComponent implements OnInit {
     currentActivities: Activity[];
     currentActivityOrder: number;
     locationShown: boolean = true;
+    dateId: string = "";
 
-    constructor(private _dateService: DateService) {
+    constructor(private _dateService: DateService, private route: ActivatedRoute,
+        private router: Router, private _http: Http) {
+        
     }
 
     startDate() {
         this.locationShown = true;
-        this._dateService.getDates()
-            .then(date => this.date = date);
-    }
 
-    ngOnInit() {
+        //this.route.params.forEach((params: Params) => {
+        //    let id = +params['id']; // (+) converts string 'id' to a number
+            
+        //});
 
+        let params = new URLSearchParams();
+        params.set('id', this.dateId);
+
+        this._http.get('/api/Date/GetDate', { search: params })
+            .subscribe(result => {
+                this.date = result.json();
+            });
+
+        //this._dateService.getDates()
+        //    .then(date => this.date = date);
     }
 
     startActivities(location: Location): void {
@@ -58,5 +73,9 @@ export class DateComponent implements OnInit {
         if (this.currentActivities.length === 0) {
             this.locationShown = true;
         }
+    }
+
+    idChange(value: string) {
+        this.dateId = value;
     }
 }

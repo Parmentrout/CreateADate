@@ -107,7 +107,6 @@ export class BuilderComponent implements OnInit {
         this._builderService.postDate(this._builderService.date).then(() => alert('Success!'));
 
         console.log(this._builderService.date);
-        //alert('Please enter your email address so we can send you your date ID');
     }
 
 

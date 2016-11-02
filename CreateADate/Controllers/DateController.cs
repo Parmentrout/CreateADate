@@ -29,7 +29,30 @@ namespace CreateADate.Controllers
             _context.SaveChanges();
             
 
-            return Json(string.Empty);
+            return Json(Ok());
+        }
+
+        [HttpGet]
+        [Route("GetDate")]
+        public JsonResult GetDate(int id)
+        {
+            Date date = _context.Dates.Where(d => d.DateId == id).FirstOrDefault();
+
+            if (date != null)
+            {
+                date.Locations = _context.Locations.Where(loc => loc.DateId == date.DateId).ToList();
+
+                foreach (var loc in date.Locations)
+                {
+                    //This will 
+                    var activities = _context.Activities.Where(act => act.LocationId == loc.LocationId).OrderBy(x => x.ActivityOrder).ToList();
+                }
+
+
+                return Json(date);
+            }
+
+            return Json(null);
         }
     }
 }
