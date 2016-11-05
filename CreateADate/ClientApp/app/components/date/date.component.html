@@ -7,12 +7,18 @@
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-default" (click)="startDate()">Go!</button>
             </span>
+            <span>
+                <img src="/dist/ajax-loader.gif" id="loading-indicator" style="display:none;position:absolute" />
+            </span>
         </div>
         <small class="form-text text-muted">This was emailed to your date creator.</small>
     </div>
 </div>
 <br />
 
+<div class="row">
+    <h3>{{date?.name}}</h3>
+</div>
 
 <!-- Locations -->
 <div id="mylocations" *ngIf="locationShown" class="row">

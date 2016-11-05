@@ -144,8 +144,11 @@ export class BuilderComponent implements OnInit {
         let options = new RequestOptions({ headers: headers });
 
         this._http.post('/api/Date/PostNewDate', this._builderService.date, options)
-            .subscribe(result => { alert('Date Saved!  Your id is ' + result.json()) });
+            .subscribe(result => {
+                $('#loading-indicator').hide();
+                alert('Date Saved!  Your id is ' + result.json());            });
 
+        $('#loading-indicator').show();
     }
 
 

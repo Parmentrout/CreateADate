@@ -53,7 +53,7 @@ namespace CreateADate.Controllers
                 return Json(date);
             }
 
-            return Json(null);
+            return Json(string.Empty);
         }
     }
 }

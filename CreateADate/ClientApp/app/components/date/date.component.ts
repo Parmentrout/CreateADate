@@ -25,6 +25,8 @@ export class DateComponent {
     }
 
     startDate() {
+        var $ = require('jquery');
+
         this.locationShown = true;
 
         let params = new URLSearchParams();
@@ -32,8 +34,16 @@ export class DateComponent {
 
         this._http.get('/api/Date/GetDate', { search: params })
             .subscribe(result => {
-                this.date = result.json();
+                let dateReturned = result.json();
+                $('#loading-indicator').hide();
+                if (dateReturned !== '') {
+                    this.date = result.json();
+                } else {
+                    alert('Ack!  Date not found');
+                }
             });
+
+        $('#loading-indicator').show();
     }
 
     startActivities(location: Location): void {
