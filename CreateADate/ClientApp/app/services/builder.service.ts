@@ -9,11 +9,13 @@ export class BuilderService implements OnInit {
     public location1: Location = new Location();
     public location2: Location = new Location();
     public currentActivityGroup: Activity[] = new Array<Activity>();
+    public committedDate: any;
 
     constructor(private _http: Http) { }
 
     ngOnInit() {
         this.date.locations = new Array<Location>();
+        this.committedDate = "";
     }
 
     public initializeLocations(locations: Location[]) {
@@ -54,6 +56,7 @@ export class BuilderService implements OnInit {
 
     private extractData(res: Response) {
         let body = res.json();
+        this.committedDate = body;
         return body.data || {};
     }
 

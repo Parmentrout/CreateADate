@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CreateADate.Repository
 {
@@ -10,7 +11,9 @@ namespace CreateADate.Repository
             this.Locations = new List<Location>();
         }
 
+        [Key]
         public int DateId { get; set; }
+
         public int UserId { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTimeOffset> CreatedDate { get; set; }

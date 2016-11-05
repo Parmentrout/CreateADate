@@ -29,7 +29,7 @@ namespace CreateADate.Controllers
             _context.SaveChanges();
             
 
-            return Json(Ok());
+            return Json(date.DateId);
         }
 
         [HttpGet]
@@ -40,11 +40,12 @@ namespace CreateADate.Controllers
 
             if (date != null)
             {
+                //This will auto load the underlying entities due to EF Magic I guess
                 date.Locations = _context.Locations.Where(loc => loc.DateId == date.DateId).ToList();
 
                 foreach (var loc in date.Locations)
                 {
-                    //This will 
+                    //This will automatically load the entities 
                     var activities = _context.Activities.Where(act => act.LocationId == loc.LocationId).OrderBy(x => x.ActivityOrder).ToList();
                 }
 

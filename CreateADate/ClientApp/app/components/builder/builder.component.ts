@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Date, Activity, Location, ActivityGroup } from '../../models/index';
 import { BuilderService } from '../../services/builder.service';
 import { ActivityComponent } from './activity.component';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 @Component({
     selector: 'date-builder',
@@ -16,18 +17,24 @@ export class BuilderComponent implements OnInit {
     activity2Groups: ActivityGroup[] = new Array<ActivityGroup>();
     activity1Counter: number = 1;
     activity2Counter: number = 1;
-    showStartButton: boolean = true;
+    showStartButton: boolean = false; //changed this
     displayLocation1: boolean = true;
     displayLocation2: boolean = true;
+    //new code
+    displaySelector1: boolean = true;
+    displaySelector2: boolean = true;
+    displayLocs: boolean = false;
     dateName: string;
+    emailAddress: string;
 
-    constructor(private _builderService: BuilderService) {
+    constructor(private _builderService: BuilderService, private _http: Http) {
     }
 
     ngOnInit() {
         this.location1.name = '';
         this.location2.name = '';
         this.dateName = '';
+        this.emailAddress = '';
         this._builderService.date = new Date();
         this._builderService.date.locations = new Array<Location>();
         this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
@@ -80,6 +87,10 @@ export class BuilderComponent implements OnInit {
         this.dateName = value;
     }
 
+    onEmailEntry(value: string) {
+        this.emailAddress = value;
+    }
+
     goToLocation2() {
         var $ = require('jquery');
         // Save Location 1 data to service
@@ -93,6 +104,29 @@ export class BuilderComponent implements OnInit {
         $('#location2Options').show();
     }
 
+    //new code
+    goToLocation(multipleLocations: boolean = false) {
+        var $ = require('jquery');
+        // Save Location 1 data to service
+
+        //$('#locationOptions').hide('slow');
+        this.displayLocation1 = true;
+
+        if (multipleLocations) {
+            this.displayLocation2 = true;
+            this.displaySelector2 = true;
+        } else {
+            this.displayLocation2 = false;
+            this.displaySelector2 = false;
+        }
+
+        this.displayLocs = true;
+        this.showStartButton = true;
+
+       // $('#locationOptions').show();
+        //this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
+    }
+
     activity2Submit() {
         //Save current Activity  
         this.activity2Counter++;    
@@ -104,9 +138,19 @@ export class BuilderComponent implements OnInit {
         this._builderService.saveActivityGroup(2);
         this._builderService.date.name = this.dateName;
 
-        this._builderService.postDate(this._builderService.date).then(() => alert('Success!'));
+        //this.postDate(this._builderService.date).then(() => this.dateSaved());
 
-        console.log(this._builderService.date);
+        let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
+        let options = new RequestOptions({ headers: headers });
+
+        this._http.post('/api/Date/PostNewDate', this._builderService.date, options)
+            .subscribe(result => { alert('Date Saved!  Your id is ' + result.json()) });
+
+    }
+
+
+    private dateSaved() {
+        alert('Thanks for creating a date! Id: ' + this._builderService.committedDate);
     }
 
 
@@ -116,23 +160,3 @@ export class BuilderComponent implements OnInit {
         }
     }
 }
-
-
-
-//Example!!
-//export class FetchDataComponent {
-//    public forecasts: WeatherForecast[];
-
-//    constructor(http: Http) {
-//        http.get('/api/SampleData/WeatherForecasts').subscribe(result => {
-//            this.forecasts = result.json();
-//        });
-//    }
-//}
-
-//interface WeatherForecast {
-//    dateFormatted: string;
-//    temperatureC: number;
-//    temperatureF: number;
-//    summary: string;
-//}

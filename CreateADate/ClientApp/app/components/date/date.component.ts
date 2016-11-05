@@ -27,11 +27,6 @@ export class DateComponent {
     startDate() {
         this.locationShown = true;
 
-        //this.route.params.forEach((params: Params) => {
-        //    let id = +params['id']; // (+) converts string 'id' to a number
-            
-        //});
-
         let params = new URLSearchParams();
         params.set('id', this.dateId);
 
@@ -39,9 +34,6 @@ export class DateComponent {
             .subscribe(result => {
                 this.date = result.json();
             });
-
-        //this._dateService.getDates()
-        //    .then(date => this.date = date);
     }
 
     startActivities(location: Location): void {

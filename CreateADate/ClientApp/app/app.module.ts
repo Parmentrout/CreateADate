@@ -9,18 +9,22 @@ import { HomeComponent } from './components/home/home.component';
 import { DateComponent } from './components/date/date.component';
 import { BuilderComponent } from './components/builder/builder.component';
 import { ActivityComponent } from './components/builder/activity.component';
+import { InfoComponent } from './components/info/info.component';
+import { AboutComponent } from './components/about/about.component';
 import { DateService, BuilderService } from './services/index';
 
 
 @NgModule({
-    bootstrap: [ AppComponent ],
+    bootstrap: [AppComponent],
     declarations: [
         AppComponent,
         NavMenuComponent,
         DateComponent,
         BuilderComponent,
         HomeComponent,
-        ActivityComponent
+        ActivityComponent,
+        InfoComponent,
+        AboutComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
@@ -29,6 +33,8 @@ import { DateService, BuilderService } from './services/index';
             { path: 'home', component: HomeComponent },
             { path: 'date', component: DateComponent },
             { path: 'builder', component: BuilderComponent },
+            { path: 'info', component: InfoComponent },
+            { path: 'about', component: AboutComponent },
             { path: '**', redirectTo: 'home' }
         ]),
         HttpModule,
