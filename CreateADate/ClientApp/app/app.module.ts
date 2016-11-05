@@ -11,6 +11,7 @@ import { BuilderComponent } from './components/builder/builder.component';
 import { ActivityComponent } from './components/builder/activity.component';
 import { InfoComponent } from './components/info/info.component';
 import { AboutComponent } from './components/about/about.component';
+import { LookupComponent } from './components/dateLookup/dateLookup.component';
 import { DateService, BuilderService } from './services/index';
 
 
@@ -24,17 +25,19 @@ import { DateService, BuilderService } from './services/index';
         HomeComponent,
         ActivityComponent,
         InfoComponent,
-        AboutComponent
+        AboutComponent,
+        LookupComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'date', component: DateComponent },
+            { path: 'date/:id', component: DateComponent },
             { path: 'builder', component: BuilderComponent },
             { path: 'info', component: InfoComponent },
             { path: 'about', component: AboutComponent },
+            { path: 'lookup', component: LookupComponent },
             { path: '**', redirectTo: 'home' }
         ]),
         HttpModule,

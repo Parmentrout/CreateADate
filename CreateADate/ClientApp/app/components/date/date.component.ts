@@ -21,21 +21,28 @@ export class DateComponent {
 
     constructor(private _dateService: DateService, private route: ActivatedRoute,
         private router: Router, private _http: Http) {
-        
-    }
+
+        }
 
     startDate() {
         var $ = require('jquery');
 
         this.locationShown = true;
 
+        this.route.params.forEach((params: Params) => {
+            let id = +params['id']; // (+) converts string 'id' to a number
+            this.dateId = id.toString();
+        });
+
+
+        //api call
         let params = new URLSearchParams();
         params.set('id', this.dateId);
 
         this._http.get('/api/Date/GetDate', { search: params })
             .subscribe(result => {
                 let dateReturned = result.json();
-                $('#loading-indicator').hide();
+                //$('#loading-indicator').hide();
                 if (dateReturned !== '') {
                     this.date = result.json();
                 } else {
@@ -75,9 +82,5 @@ export class DateComponent {
         if (this.currentActivities.length === 0) {
             this.locationShown = true;
         }
-    }
-
-    idChange(value: string) {
-        this.dateId = value;
     }
 }

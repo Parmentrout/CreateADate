@@ -1,0 +1,16 @@
+﻿<!-- Start Date with Date Id -->
+<div class="row">
+    <div class="col-md-5 col-xs-12">
+        <label for="enterId">Ready to start your date? Enter your Date ID!</label><br />
+        <div class="input-group">
+            <input type="text" id="enterId" class="form-control" placeholder="123" #dId (keyup)="onDateEntry(dId.value)" [(value)]="dateId" />
+            <span class="input-group-btn">
+                <a type="submit" class="btn btn-default" [href]="url">Go!</a>
+            </span>
+            <span>
+                <img src="/dist/ajax-loader.gif" id="loading-indicator" style="display:none;position:absolute" />
+            </span>
+        </div>
+        <small class="form-text text-muted">This was emailed to your date creator.</small>
+    </div>
+</div>
