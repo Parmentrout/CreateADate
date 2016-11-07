@@ -7,7 +7,8 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 @Component({
     //moduleId: module.id,
     selector: 'my-date',
-    template: require('./date.component.html')
+    template: require('./date.component.html'),
+    styles: [require('./date.component.css')]
 })
 export class DateComponent {
     date: Date = new Date();
@@ -42,7 +43,7 @@ export class DateComponent {
         this._http.get('/api/Date/GetDate', { search: params })
             .subscribe(result => {
                 let dateReturned = result.json();
-                //$('#loading-indicator').hide();
+                $('#loading-indicator').hide();
                 if (dateReturned !== '') {
                     this.date = result.json();
                 } else {

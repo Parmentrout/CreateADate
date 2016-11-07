@@ -6,7 +6,8 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
 
 @Component({
     selector: 'date-builder',
-    template: require('./builder.component.html')
+    template: require('./builder.component.html'),
+    styles: [require('./builder.component.css')]
 })
 export class BuilderComponent implements OnInit {
     model: Date = new Date();

@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using CreateADate.Repository;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace CreateADate
 {
@@ -30,6 +32,7 @@ namespace CreateADate
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             // Add framework services.
             services.AddMvc()
                 .AddJsonOptions(json => {
@@ -37,6 +40,11 @@ namespace CreateADate
                     json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
                 ;
+
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowSpecificOrigin"));
+            });
 
             services.AddDbContext<CreateADateContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -47,7 +55,6 @@ namespace CreateADate
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -59,6 +66,13 @@ namespace CreateADate
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            
+            app.UseCors(builder =>
+                builder
+                .AllowAnyHeader()
+                .AllowAnyOrigin()
+                );
 
             app.UseStaticFiles();
 
