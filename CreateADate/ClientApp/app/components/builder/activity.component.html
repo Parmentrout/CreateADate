@@ -18,7 +18,11 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="focusedInput">Description</label>
-                                <input class="form-control" type="text" placeholder="Actual place going + address if exists" #op1desc (keyup)="onOp1DescChange(op1desc.value)" [(value)]="activity1.description">
+                                <input class="form-control" type="text" placeholder="Name of the place you are going" #op1desc (keyup)="onOp1DescChange(op1desc.value)" [(value)]="activity1.description">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Address</label>
+                                <input class="form-control" type="text" placeholder="123 Westeros St." #op1address (keyup)="onOp1AddressChange(op1address.value)" [(value)]="activity1.address">
                             </div>
                         </div>
                         <div id="options2" class="col-xs-6">
@@ -28,7 +32,11 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label" for="focusedInput">Description</label>
-                                <input class="form-control" type="text" placeholder="Actual place going + address if exists" #op2desc (keyup)="onOp2DescChange(op2desc.value)" [(value)]="activity2.description" required>
+                                <input class="form-control" type="text" placeholder="Name of the place you are going" #op2desc (keyup)="onOp2DescChange(op2desc.value)" [(value)]="activity2.description" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="focusedInput">Address</label>
+                                <input class="form-control" type="text" placeholder="123 Westeros St." #op2address (keyup)="onOp2AddressChange(op2address.value)" [(value)]="activity2.address">
                             </div>
                         </div>
                     </div>

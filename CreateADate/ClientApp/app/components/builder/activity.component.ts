@@ -29,10 +29,12 @@ export class ActivityComponent implements OnInit {
         //Initialize all fields
         this.activity1.name = '';
         this.activity1.description = '';
+        this.activity1.address = '';
         this.activity1.optionId = 1;
         this.activity1.activityOrder = this.groupNumber;
         this.activity2.name = '';
         this.activity2.description = '';
+        this.activity2.address = '';
         this.activity2.optionId = 2;
         this.activity2.activityOrder = this.groupNumber;
 
@@ -50,6 +52,11 @@ export class ActivityComponent implements OnInit {
         this.activity1.description = value;
     }
 
+    onOp1AddressChange(value: string) {
+        this.updateBuilderService();
+        this.activity1.address = value;
+    }
+
     onOp2Change(value: string) {
         this.updateBuilderService();
         this.activity2.name = value;
@@ -58,6 +65,11 @@ export class ActivityComponent implements OnInit {
     onOp2DescChange(value: string) {
         this.updateBuilderService();
         this.activity2.description = value;
+    }
+
+    onOp2AddressChange(value: string) {
+        this.updateBuilderService();
+        this.activity2.address = value;
     }
 
     updateBuilderService() {

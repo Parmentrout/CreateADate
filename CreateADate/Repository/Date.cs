@@ -14,6 +14,8 @@ namespace CreateADate.Repository
         [Key]
         public int DateId { get; set; }
 
+        public string Email { get; set; }
+
         public int UserId { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTimeOffset> CreatedDate { get; set; }

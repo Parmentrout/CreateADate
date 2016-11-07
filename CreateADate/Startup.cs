@@ -41,10 +41,10 @@ namespace CreateADate
                 })
                 ;
 
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowSpecificOrigin"));
-            });
+            //services.Configure<MvcOptions>(options =>
+            //{
+            //    options.Filters.Add(new CorsAuthorizationFilterFactory("AllowSpecificOrigin"));
+            //});
 
             services.AddDbContext<CreateADateContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -68,11 +68,11 @@ namespace CreateADate
             }
 
             
-            app.UseCors(builder =>
-                builder
-                .AllowAnyHeader()
-                .AllowAnyOrigin()
-                );
+            //app.UseCors(builder =>
+            //    builder
+            //    .AllowAnyHeader()
+            //    .AllowAnyOrigin()
+            //    );
 
             app.UseStaticFiles();
 

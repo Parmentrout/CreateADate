@@ -136,10 +136,11 @@ export class BuilderComponent implements OnInit {
     }
 
     finishDate() {
+        var $ = require('jquery');
+
         this._builderService.saveActivityGroup(2);
         this._builderService.date.name = this.dateName;
-
-        //this.postDate(this._builderService.date).then(() => this.dateSaved());
+        this._builderService.date.email = this.emailAddress;
 
         let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
         let options = new RequestOptions({ headers: headers });
@@ -147,7 +148,8 @@ export class BuilderComponent implements OnInit {
         this._http.post('/api/Date/PostNewDate', this._builderService.date, options)
             .subscribe(result => {
                 $('#loading-indicator').hide();
-                alert('Date Saved!  Your id is ' + result.json());            });
+                alert('Date Saved!  Your id is ' + result.json());
+            });
 
         $('#loading-indicator').show();
     }

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CreateADate.Repository;
+using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,14 +24,14 @@ namespace CreateADate.Controllers
 
         [HttpPost]
         [Route("PostNewDate")]
-        public JsonResult PostNewDate([FromBody] Date date)
+        public async Task<JsonResult> PostNewDate([FromBody] Date date)
         {
             date.CreatedDate = DateTimeOffset.Now;
 
             _context.Dates.Add(date);
             _context.SaveChanges();
-            
 
+            await SendEmailAsync(date.Email, "Your Create a Date is Ready!", "createadate.azurewebsites.net/date/" + date.DateId);
             return Json(date.DateId);
         }
 
@@ -55,43 +58,36 @@ namespace CreateADate.Controllers
 
             return Json(string.Empty);
         }
+
+        private async Task SendEmailAsync(string email, string subject, string message)
+        {
+            var emailMessage = new MimeMessage();
+
+            emailMessage.From.Add(new MailboxAddress("Armentrout Family", "patrick.armentrout@gmail.com"));
+            emailMessage.To.Add(new MailboxAddress("", email));
+            emailMessage.Subject = subject;
+            emailMessage.Body = new TextPart("plain") { Text = message };
+
+            using (var client = new SmtpClient())
+            {
+                try
+                {
+                    await client.ConnectAsync("smtp.gmail.com", 587).ConfigureAwait(false);
+                    // Note: since we don't have an OAuth2 token, disable
+                    // the XOAUTH2 authentication mechanism.
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+
+                    // Note: only needed if the SMTP server requires authentication
+                    await client.AuthenticateAsync("patrick.armentrout@gmail.com", "Legnbass50!");
+                    await client.SendAsync(emailMessage).ConfigureAwait(false);
+                }
+                catch(Exception ex)
+                {
+                    throw;
+                }
+
+                await client.DisconnectAsync(true).ConfigureAwait(false);
+            }
+        }
     }
 }
-
-/* var testDate = new Date()
-            {
-                UserId = 1,
-                Name = "Test",
-                Locations = new List<Location>()
-                {
-                    new Location()
-                    {
-                        Name = "loc1",
-                        Activities = new List<Activity>()
-                        {
-                            new Activity()
-                            {
-                                Name = "Act1",
-                                Description = "what",
-                                OptionId = 1,
-                                ActivityOrder = 1
-                            }
-                        }
-                    },
-                    new Location()
-                    {
-                        Name = "loc2",
-                        Activities = new List<Activity>()
-                        {
-                            new Activity()
-                            {
-                                Name = "Act1",
-                                Description = "what",
-                                OptionId = 1,
-                                ActivityOrder = 1
-                            }
-                        }
-                    }
-                }
-            };
-            */
