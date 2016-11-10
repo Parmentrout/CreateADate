@@ -61,6 +61,8 @@ namespace CreateADate.Controllers
 
         private async Task SendEmailAsync(string email, string subject, string message)
         {
+            //http://stackoverflow.com/questions/33496290/how-to-send-email-by-using-mailkit
+
             var emailMessage = new MimeMessage();
 
             emailMessage.From.Add(new MailboxAddress("Armentrout Family", "patrick.armentrout@gmail.com"));

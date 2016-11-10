@@ -7,7 +7,8 @@ declare var google: any;
 
 @Component({
     selector: 'activity-options',
-    template: require('./activity.component.html')
+    template: require('./activity.component.html'),
+    styles: [require('./activity.component.css')]
 })
 export class ActivityComponent implements OnInit {
     activity1: Activity = new Activity();

@@ -1,12 +1,12 @@
 <!-- put in an email address so we know where to send the date-->
 <div class="container" id="builder">
-    <div class="panel panel-primary">
+    <div class="panel panel-default">
         <div class="panel-heading">
             
                 <h3 class="panel-title">
                     <a data-toggle="collapse" date-parent="accordion" href="#basics">The Basics</a>
                 </h3>
-                <div class="btn-block glyphicon-pencil pull-right"></div>
+                <!--<div class="btn-block glyphicon-pencil pull-right"></div>-->
           
         </div>
         <div id="basics" class="panel-collapse collapse in">
@@ -24,8 +24,9 @@
             </div>
         </div>
     </div>
+    <button class="btn btn-default" (click)="goToLocation()">Next</button><br />
     <!-- New Code -->
-<div class="panel panel-primary">
+<!--<div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">How many starting locations do you need?</h3>
     </div>
@@ -33,11 +34,9 @@
     <div class="form-group">
         <div *ngIf="displaySelector1" class="col-xs-6">
             <button class="btn btn-default btn-lg" (click)="goToLocation()">One</button>
-            <!--If you click 1 you should just start adding activities-->
         </div>
         <div *ngIf="displaySelector2" class="col-xs-6">
             <button class="btn btn-default btn-lg" (click)="goToLocation(true)">Two</button>
-            <!--If you click 2 it should bring up the starting points form.-->
         </div>
         </div>
         <div class="col-xs-12">
@@ -51,8 +50,8 @@
     </div>
     </div>
 <!-- End New COde -->
-
-<div *ngIf="displayLocs" class="panel panel-primary">
+    <br/>
+<div *ngIf="displayLocs" class="panel panel-default">
 <div class="panel-heading">
 <h3 class="panel-title">Starting Locations</h3>
 </div>
@@ -73,7 +72,17 @@
                 <small><span class="help-block">Examples include: Uptown/Downtown, Boulder/Denver, etc. If all of your activities are
                     in one general area go back and select One for number of starting locations to start adding activities.</span></small>
             </div>
+            <div class="row">
+                <div *ngIf="displayCheckbox">
+                    <div class="checkbox" (click)="goToLocation(true)">
+                        <label>
+                            <input type="checkbox" value="">Add Second Location
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
     </div>

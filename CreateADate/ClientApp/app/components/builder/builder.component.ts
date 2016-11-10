@@ -24,6 +24,7 @@ export class BuilderComponent implements OnInit {
     //new code
     displaySelector1: boolean = true;
     displaySelector2: boolean = true;
+    displayCheckbox: boolean = true;
     displayLocs: boolean = false;
     dateName: string;
     emailAddress: string;
@@ -116,6 +117,7 @@ export class BuilderComponent implements OnInit {
         if (multipleLocations) {
             this.displayLocation2 = true;
             this.displaySelector2 = true;
+            this.displayCheckbox = false;
         } else {
             this.displayLocation2 = false;
             this.displaySelector2 = false;
@@ -166,3 +168,4 @@ export class BuilderComponent implements OnInit {
         }
     }
 }
+
