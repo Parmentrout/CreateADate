@@ -28,6 +28,7 @@ export class BuilderComponent implements OnInit {
     displayLocs: boolean = false;
     dateName: string;
     emailAddress: string;
+    nextButton: boolean = true;
 
     constructor(private _builderService: BuilderService, private _http: Http) {
     }
@@ -123,6 +124,7 @@ export class BuilderComponent implements OnInit {
             this.displaySelector2 = false;
         }
 
+        this.nextButton = false;
         this.displayLocs = true;
         this.showStartButton = true;
 

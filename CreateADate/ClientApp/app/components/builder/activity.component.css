@@ -1,11 +1,10 @@
 ﻿    .options {
         margin-top: 60px;
     }
-    .activities {
-        background-color:#EDD3B9;
-    height:100vh;
-    width:auto;
-    }
+
+    html {
+    background-color: #EDD3B9;
+}
 
 .panel-default > .panel-heading {
   color: black;

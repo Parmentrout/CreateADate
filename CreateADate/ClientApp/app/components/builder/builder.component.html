@@ -2,12 +2,9 @@
 <div class="container" id="builder">
     <div class="panel panel-default">
         <div class="panel-heading">
-            
                 <h3 class="panel-title">
-                    <a data-toggle="collapse" date-parent="accordion" href="#basics">The Basics</a>
-                </h3>
-                <!--<div class="btn-block glyphicon-pencil pull-right"></div>-->
-          
+                    <a data-toggle="collapse" date-parent="accordion">The Basics</a>
+                </h3>        
         </div>
         <div id="basics" class="panel-collapse collapse in">
             <div class="panel-body">
@@ -24,7 +21,7 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-default" (click)="goToLocation()">Next</button><br />
+    <button *ngIf="nextButton" class="btn btn-default" (click)="goToLocation()">Next</button>
     <!-- New Code -->
 <!--<div class="panel panel-default">
     <div class="panel-heading">
@@ -69,8 +66,10 @@
                 </div>
             </div>
             <div class="col-xs-12">
-                <small><span class="help-block">Examples include: Uptown/Downtown, Boulder/Denver, etc. If all of your activities are
-                    in one general area go back and select One for number of starting locations to start adding activities.</span></small>
+                <small><span class="help-block">Examples include: Uptown, Downtown, Boulder, Denver etc. If all of your activities are
+                    in one general area one location is all you need. If your activities will depend on location (for example
+                    one set of activities are uptown and the other set is downtown) use the checkbox 
+                    to add a second location.</span></small>
             </div>
             <div class="row">
                 <div *ngIf="displayCheckbox">
