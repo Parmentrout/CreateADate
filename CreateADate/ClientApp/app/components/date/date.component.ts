@@ -70,7 +70,7 @@ export class DateComponent {
 
         // Get other activity
         let hiddenActivity = this.currentActivities.filter(act => act.optionId !== activity.optionId)[0];
-        //$('#activity' + hiddenActivity.activityId).hide('slow');
+        //$('#activity' + hiddenActivity.activityId).hide('slow'); 
         this.detailsShown = true;
     }
 
