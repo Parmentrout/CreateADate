@@ -19,6 +19,7 @@ export class DateComponent {
     currentActivityOrder: number;
     locationShown: boolean = true;
     dateId: string = "";
+    showButton: boolean = true;
 
     constructor(private _dateService: DateService, private route: ActivatedRoute,
         private router: Router, private _http: Http) {
@@ -28,6 +29,7 @@ export class DateComponent {
     startDate() {
         var $ = require('jquery');
 
+        this.showButton = false;
         this.locationShown = true;
 
         this.route.params.forEach((params: Params) => {
@@ -70,6 +72,8 @@ export class DateComponent {
 
         // Get other activity
         let hiddenActivity = this.currentActivities.filter(act => act.optionId !== activity.optionId)[0];
+        let index: number = this.currentActivities.findIndex(act => act.optionId !== activity.optionId);
+        this.currentActivities.splice(index,1);
         //$('#activity' + hiddenActivity.activityId).hide('slow'); 
         this.detailsShown = true;
     }

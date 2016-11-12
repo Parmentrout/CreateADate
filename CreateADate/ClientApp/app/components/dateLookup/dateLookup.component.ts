@@ -10,6 +10,10 @@ export class LookupComponent {
 
     private dateId: string = "";
     private url: string = "";
+
+    private dateEditId: string = "";
+    private editUrl: string = "";
+
     constructor(private _router: Router) {
     }
 
@@ -21,5 +25,10 @@ export class LookupComponent {
         this.dateId = value;
         this.url = "/date/" + value;
     } 
+
+    onDateEditEntry(value: string) {
+        this.dateEditId = value;
+        this.editUrl = "/builder/" + value;
+    }
 
 }

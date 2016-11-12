@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Date, Activity, Location, ActivityGroup } from '../../models/index';
 import { BuilderService } from '../../services/builder.service';
 import { ActivityComponent } from './activity.component';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'date-builder',
@@ -10,9 +12,11 @@ import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angul
     styles: [require('./builder.component.css')]
 })
 export class BuilderComponent implements OnInit {
-    model: Date = new Date();
     location1: Location = new Location(); // fix these
     location2: Location = new Location(); // fix these
+
+    private dateEditId: string = "";
+
     locationsValid: boolean = false;
     activity1Groups: ActivityGroup[] = new Array<ActivityGroup>();
     activity2Groups: ActivityGroup[] = new Array<ActivityGroup>();
@@ -30,17 +34,74 @@ export class BuilderComponent implements OnInit {
     emailAddress: string;
     nextButton: boolean = true;
 
-    constructor(private _builderService: BuilderService, private _http: Http) {
+    constructor(private _builderService: BuilderService, private _http: Http, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.location1.name = '';
-        this.location2.name = '';
-        this.dateName = '';
-        this.emailAddress = '';
-        this._builderService.date = new Date();
-        this._builderService.date.locations = new Array<Location>();
-        this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
+            this.location1.name = '';
+            this.location2.name = '';
+            this.dateName = '';
+            this.emailAddress = '';
+            this._builderService.date = new Date();
+            this._builderService.date.locations = new Array<Location>();
+            this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
+
+            //this.ngAfterViewInit();
+    }
+
+    editDate() {
+        //let dateId: number = 0;
+        //this.route.params.forEach((params: Params) => {
+        //    dateId = +params['id']; // (+) converts string 'id' to a number
+        //});
+
+    //Now we need to get the date
+        let params = new URLSearchParams();
+        params.set('id', this.dateEditId);
+
+        this._http.get('/api/Date/GetDate', { search: params })
+            .subscribe(result => {
+                let dateReturned = result.json();
+                if (dateReturned !== '') {
+                    let date = result.json();
+                    this._builderService.date = result.json();
+                    this.mapExistingDate(date);
+                } else {
+                    //alert('Ack!  Date not found');
+                }
+            });
+    }
+
+    private mapExistingDate(date: Date) {
+        this.location1.name = date.locations[0].name;
+        if (date.locations.length > 1) {
+            this.location2.name = date.locations[1].name;
+        }
+        this.dateName = date.name;
+        this.emailAddress = date.email;
+        this._builderService.date = date;
+        this._builderService.date.locations = date.locations;
+        this.goToLocation();
+
+        //Now activities, how many do I have?
+        let curLocation = 0;
+        let curActivity = 0;
+        let activityGroups = date.locations[curLocation].activities.length / 2;
+        let curActivityGroupId = 1;
+
+        for (let g = 0; g <= activityGroups; g++) {
+            let act: Activity = date.locations[curLocation].activities[curActivity];
+            let act2: Activity = date.locations[curLocation].activities[curActivity++];
+            let activityGroup: ActivityGroup = new ActivityGroup();
+            activityGroup.group = new Array<Activity>();
+            activityGroup.group.push(act, act2);
+            activityGroup.id = curActivityGroupId;
+
+            curActivityGroupId++;
+        }
+
+        var $ = require('jquery');
+        $('#location1Options').show('slow');
     }
 
     addBlankActivityGroup(group: ActivityGroup[], counter: number) {
@@ -92,6 +153,10 @@ export class BuilderComponent implements OnInit {
 
     onEmailEntry(value: string) {
         this.emailAddress = value;
+    }
+
+    onDateEditEntry(value: string) {
+        this.dateEditId = value;
     }
 
     goToLocation2() {

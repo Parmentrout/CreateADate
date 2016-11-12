@@ -1,7 +1,7 @@
 <div class="container-fluid" id="date">
     <div class="row">
         <div class="col-sm-offset-5 col-sm-2 col-xs-12">
-            <button class="btn btn-default" (click)="startDate()">Let's start our date!</button>
+            <button class="btn btn-default" *ngIf="showButton" (click)="startDate()">Let's start our date!</button>
             <img src="/dist/balls.gif" id="loading-indicator" style="align-content:center;display:none"/>
         </div>
     </div>
@@ -15,7 +15,7 @@
 <div id="mylocations" *ngIf="locationShown" class="row">
     <!--<h4>First, Choose your Location!</h4>-->
     <div *ngFor="let location of date.locations" class="col-xs-6">
-        <button class="btn btn-default btn-lg" (click)="startActivities(location)">{{location.name}}</button>
+        <button *ngIf="location.name !== ''" class="btn btn-default btn-lg" (click)="startActivities(location)">{{location.name}}</button>
     </div>
 </div>
 

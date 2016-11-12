@@ -65,7 +65,7 @@ namespace CreateADate.Controllers
 
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Armentrout Family", "patrick.armentrout@gmail.com"));
+            emailMessage.From.Add(new MailboxAddress("Create A Date", "createadate.io@gmail.com"));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart("plain") { Text = message };
@@ -80,7 +80,7 @@ namespace CreateADate.Controllers
                     client.AuthenticationMechanisms.Remove("XOAUTH2");
 
                     // Note: only needed if the SMTP server requires authentication
-                    await client.AuthenticateAsync("patrick.armentrout@gmail.com", "Legnbass50!");
+                    await client.AuthenticateAsync("createadate.io@gmail.com", "Legnbass13");
                     await client.SendAsync(emailMessage).ConfigureAwait(false);
                 }
                 catch(Exception ex)

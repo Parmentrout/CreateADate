@@ -34,7 +34,7 @@ import { DateService, BuilderService } from './services/index';
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'date/:id', component: DateComponent },
-            { path: 'builder', component: BuilderComponent },
+            { path: 'builder/:id', component: BuilderComponent },
             { path: 'info', component: InfoComponent },
             { path: 'about', component: AboutComponent },
             { path: 'lookup', component: LookupComponent },

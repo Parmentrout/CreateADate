@@ -18,26 +18,32 @@ export class ActivityComponent implements OnInit {
 
     @Input() groupNumber: number;
     @Input() locationNumber: number;
+    @Input() editActivityGroup: ActivityGroup;
     panelName: string;
 
     ngOnInit() {
         this.panelName = "collapse" + this.groupNumber;
 
-        let headers = new Headers({ 'Content-Type': '/json; charset=utf-8' });
-        let options = new RequestOptions({ headers: headers });
-      //  this._http.get('https://maps.googleapis.com/maps/api/js?key=AIzaSyDsyYSU6Vqzm54NPTjlqKpgRsbCPkYMiek&libraries=places&callback=initAutocomplete', options)
-      //      .subscribe(initAutocomplete);
+      //  let headers = new Headers({ 'Content-Type': '/json; charset=utf-8' });
+      //  let options = new RequestOptions({ headers: headers });
+      ////  this._http.get('https://maps.googleapis.com/maps/api/js?key=AIzaSyDsyYSU6Vqzm54NPTjlqKpgRsbCPkYMiek&libraries=places&callback=initAutocomplete', options)
+      ////      .subscribe(initAutocomplete);
         //Initialize all fields
-        this.activity1.name = '';
-        this.activity1.description = '';
-        this.activity1.address = '';
-        this.activity1.optionId = 1;
-        this.activity1.activityOrder = this.groupNumber;
-        this.activity2.name = '';
-        this.activity2.description = '';
-        this.activity2.address = '';
-        this.activity2.optionId = 2;
-        this.activity2.activityOrder = this.groupNumber;
+
+            this.activity1.name = '';
+            this.activity1.description = '';
+            this.activity1.address = '';
+            this.activity1.optionId = 1;
+            this.activity1.activityOrder = this.groupNumber;
+            this.activity2.name = '';
+            this.activity2.description = '';
+            this.activity2.address = '';
+            this.activity2.optionId = 2;
+            this.activity2.activityOrder = this.groupNumber;
+        //} else {
+        //    this.activity1.name = this.activityGroup.group[0].name;
+        //}
+
 
         this._builderService.currentActivityGroup.push(this.activity1);
         this._builderService.currentActivityGroup.push(this.activity2);
