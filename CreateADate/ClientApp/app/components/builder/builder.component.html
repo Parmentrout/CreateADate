@@ -3,7 +3,7 @@
 
 <!-- put in an email address so we know where to send the date-->
 <div class="container" id="builder">
-    <!--<div class="row">
+    <div class="row">
         <div class="col-sm-4">
             <label for="enterEditId">Edit an existing date:</label><br />
             <div class="input-group">
@@ -14,7 +14,7 @@
             </div>
             <small class="form-text text-muted">This was emailed to your date creator.</small>
         </div>
-    </div>-->
+    </div>
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -124,7 +124,7 @@
 
 <div id="location2Options" hidden>
     <div class="row" *ngFor="let group of activity2Groups">
-        <activity-options [groupNumber]="group.id" [locationNumber]="2"></activity-options>
+        <activity-options [editActivityGroup]="group" [groupNumber]="group.id" [locationNumber]="2"></activity-options>
     </div>
     <div class="col-md-3 col-xs-12">
         <button class="btn-info btn btn-block" (click)="activity2Submit()">Add Another Activity Set</button>
@@ -147,7 +147,7 @@
     </div>
     <div class="col-md-3 col-xs-12 pull-right">
         <button class="btn-success btn btn-block" (click)="finishDate()">Finish Building Date!</button>
-        <img src="/dist/balls.gif" id="loading-indicator" style="display:none" />
+        <img src="/dist/balls.gif" id="loading-indicator" style="align-content:center;display:none"/>
         <!--When you click on this it will bring up the location options and get rid of the activities for location 1-->
     </div>
 </div>

@@ -2,11 +2,13 @@
 <div class="container" id="container1">
 <div class="row">
     <div class="col-sm-offset-3 col-sm-5 col-xs-12">
-        <label for="enterId">Ready to start your date? Enter your Date ID!</label><br />
+        <label for="enterId">Ready to start your date? Enter your Date ID and the email address used to 
+        create the date!</label><br />
         <div class="input-group">
             <input type="text" id="enterId" class="form-control" placeholder="123" #dId (keyup)="onDateEntry(dId.value)" [(value)]="dateId" />
+            <input type="text" id="emailAddress" class="form-control" placeholder="john@google.com" /> <!--#dId (keyup)="onDateEntry(dId.value)" [(value)]="dateId"--> 
             <span class="input-group-btn">
-                <a type="submit" class="btn btn-default" [href]="url">Go!</a>
+                <a type="submit" class="btn btn-lg btn-default" [href]="url">Go!</a>
             </span>
         </div>
         <small class="form-text text-muted">This was emailed to your date creator.</small>

@@ -44,7 +44,7 @@ export class BuilderComponent implements OnInit {
             this.emailAddress = '';
             this._builderService.date = new Date();
             this._builderService.date.locations = new Array<Location>();
-            this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
+            //this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
 
             //this.ngAfterViewInit();
     }
@@ -86,21 +86,31 @@ export class BuilderComponent implements OnInit {
         //Now activities, how many do I have?
         let curLocation = 0;
         let curActivity = 0;
-        let activityGroups = date.locations[curLocation].activities.length / 2;
-        let curActivityGroupId = 1;
 
-        for (let g = 0; g <= activityGroups; g++) {
-            let act: Activity = date.locations[curLocation].activities[curActivity];
-            let act2: Activity = date.locations[curLocation].activities[curActivity++];
-            let activityGroup: ActivityGroup = new ActivityGroup();
-            activityGroup.group = new Array<Activity>();
-            activityGroup.group.push(act, act2);
-            activityGroup.id = curActivityGroupId;
+        for (let l = 1; l <= date.locations.length; l++) {
+            let activityGroups = date.locations[curLocation].activities.length / 2;
+            let curActivityGroupId = 1;
 
-            curActivityGroupId++;
+            for (let g = 1; g <= activityGroups; g++) {
+                let act: Activity = date.locations[curLocation].activities[curActivity];
+                let act2: Activity = date.locations[curLocation].activities[curActivity++];
+                let activityGroup: ActivityGroup = new ActivityGroup();
+                activityGroup.group = new Array<Activity>();
+                activityGroup.group.push(act, act2);
+                activityGroup.id = curActivityGroupId;
+                if (l === 1) {
+                    this.activity1Groups.push(activityGroup);
+                } else {
+                    this.activity2Groups.push(activityGroup);
+                }
+                curActivityGroupId++;
+            }
+
+            curLocation++;
         }
 
         var $ = require('jquery');
+        this.displayLocation2 = false;
         $('#location1Options').show('slow');
     }
 
@@ -122,7 +132,7 @@ export class BuilderComponent implements OnInit {
 
     locationSubmit() {
         this._builderService.initializeLocations([this.location1, this.location2]);
-
+        this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
         this.showStartButton = false;
         this.displayLocation2 = false;
         var $ = require('jquery');
@@ -167,7 +177,10 @@ export class BuilderComponent implements OnInit {
         $('#location1Options').hide('slow');
         this.displayLocation1 = false;
         this.displayLocation2 = true;
-        this.addBlankActivityGroup(this.activity2Groups, this.activity2Counter);
+
+        if (this.activity2Groups.length === 0) {
+            this.addBlankActivityGroup(this.activity2Groups, this.activity2Counter);
+        }
 
         $('#location2Options').show();
     }
@@ -217,7 +230,7 @@ export class BuilderComponent implements OnInit {
         this._http.post('/api/Date/PostNewDate', this._builderService.date, options)
             .subscribe(result => {
                 $('#loading-indicator').hide();
-                alert('Date Saved!  Your id is ' + result.json());
+                alert('Date Saved! Your Date ID is ' + result.json());
             });
 
         $('#loading-indicator').show();
@@ -225,7 +238,7 @@ export class BuilderComponent implements OnInit {
 
 
     private dateSaved() {
-        alert('Thanks for creating a date! Id: ' + this._builderService.committedDate);
+        alert('Thank you for using create a date! Your Date ID is: ' + this._builderService.committedDate);
     }
 
 

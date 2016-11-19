@@ -29,7 +29,10 @@ export class ActivityComponent implements OnInit {
       ////  this._http.get('https://maps.googleapis.com/maps/api/js?key=AIzaSyDsyYSU6Vqzm54NPTjlqKpgRsbCPkYMiek&libraries=places&callback=initAutocomplete', options)
       ////      .subscribe(initAutocomplete);
         //Initialize all fields
-
+        if (this.editActivityGroup && this.editActivityGroup.group[0].name) {   
+            this.activity1 = this.editActivityGroup.group[0];
+            this.activity2 = this.editActivityGroup.group[1];
+        } else {
             this.activity1.name = '';
             this.activity1.description = '';
             this.activity1.address = '';
@@ -40,10 +43,7 @@ export class ActivityComponent implements OnInit {
             this.activity2.address = '';
             this.activity2.optionId = 2;
             this.activity2.activityOrder = this.groupNumber;
-        //} else {
-        //    this.activity1.name = this.activityGroup.group[0].name;
-        //}
-
+        }
 
         this._builderService.currentActivityGroup.push(this.activity1);
         this._builderService.currentActivityGroup.push(this.activity2);

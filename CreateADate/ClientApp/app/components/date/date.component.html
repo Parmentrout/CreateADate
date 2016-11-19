@@ -13,7 +13,6 @@
 
 <!-- Locations -->
 <div id="mylocations" *ngIf="locationShown" class="row">
-    <!--<h4>First, Choose your Location!</h4>-->
     <div *ngFor="let location of date.locations" class="col-xs-6">
         <button *ngIf="location.name !== ''" class="btn btn-default btn-lg" (click)="startActivities(location)">{{location.name}}</button>
     </div>
@@ -23,7 +22,7 @@
 <div *ngIf="activitiesEnabled" class="row">
     <!--<h4>Activity Group {{currentActivityOrder}}</h4>-->
     <div *ngFor="let activity of currentActivities" class="col-xs-6" [attr.id]="'activity'+activity.activityId">
-        <button class="btn btn-default btn-lg" (click)="showActivityDetails(activity)">{{activity.name}}</button><br />
+        <button id="test" class="btn btn-default btn-lg" (click)="showActivityDetails(activity)">{{activity.name}}</button><br />
         <div *ngIf="detailsShown">
             <h4>{{activity.description}}</h4><br />
             {{activity.address}}<br />

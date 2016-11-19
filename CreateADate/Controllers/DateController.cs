@@ -28,8 +28,42 @@ namespace CreateADate.Controllers
         {
             date.CreatedDate = DateTimeOffset.Now;
 
-            _context.Dates.Add(date);
-            _context.SaveChanges();
+            if (date.DateId == 0)
+            {
+                _context.Dates.Add(date);
+            }
+            else
+            {
+                var update = _context.Dates.FirstOrDefault(x => x.DateId == date.DateId);
+                update.Name = date.Name;
+                foreach (var loc in date.Locations)
+                {
+                    var lookup = _context.Locations.Where(l => l.LocationId == loc.LocationId).FirstOrDefault();
+                    lookup.Name = loc.Name;
+                    foreach (var act in loc.Activities)
+                    {
+                        var actLookup = _context.Activities.FirstOrDefault(a => a.ActivityId == act.ActivityId);
+                        if (actLookup != null)
+                        {
+                            actLookup.Name = act.Name;
+                            actLookup.Address = act.Address;
+                            actLookup.Description = act.Description;
+                        }
+                        else
+                        {
+                            loc.Activities.Add(act);
+                        }
+                    }
+                }
+            }
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json("An error has occured" + ex.Message);
+            }
 
             await SendEmailAsync(date.Email, "Your Create a Date is Ready!", "createadate.azurewebsites.net/date/" + date.DateId);
             return Json(date.DateId);
