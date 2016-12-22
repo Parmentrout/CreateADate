@@ -17,6 +17,7 @@ namespace CreateADate.Repository
         public string Email { get; set; }
 
         public int UserId { get; set; }
+        public int DateToken { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTimeOffset> CreatedDate { get; set; }
         public Nullable<bool> IsDemo { get; set; }

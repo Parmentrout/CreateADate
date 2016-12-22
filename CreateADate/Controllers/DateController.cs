@@ -30,6 +30,9 @@ namespace CreateADate.Controllers
 
             if (date.DateId == 0)
             {
+                Random random = new Random();
+                int randomNumber = random.Next(0, 100000);
+                date.DateToken = randomNumber;
                 _context.Dates.Add(date);
             }
             else
@@ -65,15 +68,23 @@ namespace CreateADate.Controllers
                 return Json("An error has occured" + ex.Message);
             }
 
-            await SendEmailAsync(date.Email, "Your Create a Date is Ready!", "createadate.azurewebsites.net/date/" + date.DateId);
-            return Json(date.DateId);
+            try
+            {
+                await SendEmailAsync(date.Email, "Your Create a Date is Ready!", "createadate.azurewebsites.net/date/" + date.DateToken);
+            }
+            catch
+            {
+                return Json("An error has occured sending you an email.  Your date id is: " + date.DateToken);
+            }
+           
+            return Json(date.DateToken);
         }
 
         [HttpGet]
         [Route("GetDate")]
         public JsonResult GetDate(int id)
         {
-            Date date = _context.Dates.Where(d => d.DateId == id).FirstOrDefault();
+            Date date = _context.Dates.Where(d => d.DateToken == id).FirstOrDefault();
 
             if (date != null)
             {

@@ -14,7 +14,6 @@ import { Observable } from 'rxjs';
 export class BuilderComponent implements OnInit {
     location1: Location = new Location(); // fix these
     location2: Location = new Location(); // fix these
-
     private dateEditId: string = "";
 
     locationsValid: boolean = false;
@@ -44,18 +43,10 @@ export class BuilderComponent implements OnInit {
             this.emailAddress = '';
             this._builderService.date = new Date();
             this._builderService.date.locations = new Array<Location>();
-            //this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
-
-            //this.ngAfterViewInit();
     }
 
     editDate() {
-        //let dateId: number = 0;
-        //this.route.params.forEach((params: Params) => {
-        //    dateId = +params['id']; // (+) converts string 'id' to a number
-        //});
 
-    //Now we need to get the date
         let params = new URLSearchParams();
         params.set('id', this.dateEditId);
 
@@ -134,7 +125,11 @@ export class BuilderComponent implements OnInit {
         this._builderService.initializeLocations([this.location1, this.location2]);
         this.addBlankActivityGroup(this.activity1Groups, this.activity1Counter);
         this.showStartButton = false;
-        this.displayLocation2 = false;
+
+        if (!this.displayLocation2) {
+            
+        }
+
         var $ = require('jquery');
         $('#location1Options').show('slow');
     }
@@ -183,6 +178,10 @@ export class BuilderComponent implements OnInit {
         }
 
         $('#location2Options').show();
+    }
+
+    toggleLocations() {
+        this.displayLocation2 = !this.displayLocation2;
     }
 
     //new code
@@ -236,6 +235,10 @@ export class BuilderComponent implements OnInit {
         $('#loading-indicator').show();
     }
 
+    toggleEditEntry() {
+        var $ = require('jquery');
+        $('#editInput').slideToggle();
+    }
 
     private dateSaved() {
         alert('Thank you for using create a date! Your Date ID is: ' + this._builderService.committedDate);
