@@ -83,9 +83,14 @@
     <div class="row" *ngFor="let group of activity1Groups">
        <activity-options [editActivityGroup]="group" [groupNumber]="group.id" [locationNumber]="1"></activity-options>
     </div>
+    <div class="row" style="margin-bottom:30px">
         <div class="col-md-3 col-xs-12">
             <button class="btn-info btn btn-block" (click)="activitySubmit()">Add Another Activity Set</button>
             <!--When you click on this it will duplicate the location options and scroll down while leaving the previous set of activities open for editing-->
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col-md-1 col-xs-12">
+            <img src="/dist/balls.gif" id="loading-indicator-builder" style="align-content:center;margin-top:-30px;display:none" />
         </div>
         <div class="col-md-3 col-xs-12 pull-right" *ngIf="displayLocation2">
             <button class="btn-success btn btn-block" (click)="goToLocation2()">Add Activities {{location2.name}}</button>
@@ -95,35 +100,26 @@
             <button class="btn-success btn btn-block" (click)="finishDate()">Finish Building Date!</button>
             <!--When you click on this it will bring up the location options and get rid of the activities for location 1-->
         </div>
+    </div>
 </div>
 
 <div id="location2Options" hidden>
     <div class="row" *ngFor="let group of activity2Groups">
         <activity-options [editActivityGroup]="group" [groupNumber]="group.id" [locationNumber]="2"></activity-options>
     </div>
-    <div class="col-md-3 col-xs-12">
-        <button class="btn-info btn btn-block" (click)="activity2Submit()">Add Another Activity Set</button>
-        <!--When you click on this it will duplicate the location options and scroll down while leaving the previous set of activities open for editing-->
-    </div>
-    <div class="col-md-3 col-xs-12 pull-right">
-        <button class="btn-success btn btn-block" (click)="finishDate()">Finish Building Date!</button>
-        <!--When you click on this it will bring up the location options and get rid of the activities for location 1-->
-    </div>
-</div>
-
-<!-- New Code , we can delete-->
-<div id="locationOptions" hidden>
-    <div class="row" *ngFor="let group of activity1Groups">
-        <activity-options [groupNumber]="group.id" [locationNumber]="1"></activity-options>
-    </div>
-    <div class="col-md-3 col-xs-12">
-        <button class="btn-info btn btn-block" (click)="activitySubmit()">Add Another Activity Set</button>
-        <!--When you click on this it will duplicate the location options and scroll down while leaving the previous set of activities open for editing-->
-    </div>
-    <div class="col-md-3 col-xs-12 pull-right">
-        <button class="btn-success btn btn-block" (click)="finishDate()">Finish Building Date!</button>
-        <img src="/dist/balls.gif" id="loading-indicator" style="align-content:center;display:none"/>
-        <!--When you click on this it will bring up the location options and get rid of the activities for location 1-->
+    <div class="row" style="margin-bottom:30px">
+        <div class="col-md-3 col-xs-12">
+            <button class="btn-info btn btn-block" (click)="activity2Submit()">Add Another Activity Set</button>
+            <!--When you click on this it will duplicate the location options and scroll down while leaving the previous set of activities open for editing-->
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col-md-1 col-xs-12">
+            <img src="/dist/balls.gif" id="loading-indicator-builder" style="align-content:center;margin-top:-30px;display:none" />
+        </div>
+        <div class="col-md-3 col-xs-12 pull-right">
+            <button class="btn-success btn btn-block" (click)="finishDate()">Finish Building Date!</button>
+            <!--When you click on this it will bring up the location options and get rid of the activities for location 1-->
+        </div>
     </div>
 </div>
 </div>

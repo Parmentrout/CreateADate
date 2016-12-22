@@ -228,11 +228,11 @@ export class BuilderComponent implements OnInit {
 
         this._http.post('/api/Date/PostNewDate', this._builderService.date, options)
             .subscribe(result => {
-                $('#loading-indicator').hide();
+                $('#loading-indicator-builder').hide();
                 alert('Date Saved! Your Date ID is ' + result.json());
             });
 
-        $('#loading-indicator').show();
+        $('#loading-indicator-builder').show();
     }
 
     toggleEditEntry() {
